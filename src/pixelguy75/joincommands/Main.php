@@ -29,7 +29,7 @@ A inatendue after crash
         if($this->getConfig()->get("enablejoin") === true){
             $player = $event->getPlayer();
             foreach($this->getConfig()->get("JoinCommand") as $command){
-                $this->getServer()->dispatchCommand(new ConsoleCommandSender(),$command));	
+                $this->getServer()->dispatchCommand(new ConsoleCommandSender(), str_replace("{player}", $player->getName(), $command));	
             }
         }
     }
