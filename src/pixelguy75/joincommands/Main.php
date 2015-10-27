@@ -15,12 +15,21 @@ class Main extends PluginBase implements Listener{
     public function onEnable(){
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
         $this->saveDefaultConfig();
+/**
+I add this to reset the Mines.
+A inatendue after crash
+**/
+        if($this->getConfig()->get("onEnable-Server") === true){
+            foreach($this->getConfig()->get("onEnable-Server-Command") as $command){
+                $this->getServer()->dispatchCommand(new ConsoleCommandSender(),$command);
+            }
+        }
     }
     public function onJoin(PlayerJoinEvent $event){
         if($this->getConfig()->get("enablejoin") === true){
             $player = $event->getPlayer();
             foreach($this->getConfig()->get("JoinCommand") as $command){
-                $this->getServer()->dispatchCommand(new ConsoleCommandSender(), str_replace("{player}", $player->getName(), $command));	
+                $this->getServer()->dispatchCommand(new ConsoleCommandSender(),$command));	
             }
         }
     }
